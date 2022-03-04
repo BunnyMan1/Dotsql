@@ -18,6 +18,7 @@ public record User
     public string LastName { get; set; }
     public DateTimeOffset DateOfBirth { get; set; }
     public long Mobile { get; set; }
+
     /// <summary>
     /// Can be NULL
     /// </summary>
