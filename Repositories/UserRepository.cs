@@ -1,4 +1,5 @@
 using Dotsql.Models;
+using Dapper;
 
 namespace Dotsql.Repositories;
 
@@ -33,9 +34,18 @@ public class UserRepository : BaseRepository, IUserRepository
         throw new NotImplementedException();
     }
 
-    public Task<List<User>> GetList()
+    public async Task<List<User>> GetList()
     {
-        throw new NotImplementedException();
+        // Query
+        var query = $@"SELECT * FROM ""user""";
+
+        List<User> res;
+        using (var con = NewConnection) // Open connection
+            res = (await con.QueryAsync<User>(query)).AsList(); // Execute the query
+        // Close the connection
+
+        // Return the result
+        return res;
     }
 
     public Task Update(User Item)
