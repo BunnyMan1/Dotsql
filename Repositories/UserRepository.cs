@@ -49,15 +49,11 @@ public class UserRepository : BaseRepository, IUserRepository
     public async Task<User> GetById(long EmployeeNumber)
     {
         var query = $@"SELECT * FROM ""{TableNames.user}"" 
-        WHERE employee_number = @empNum";
+        WHERE employee_number = @EmployeeNumber";
         // SQL-Injection
 
         using (var con = NewConnection)
-            return await con.QuerySingleOrDefaultAsync<User>(query,
-            new
-            {
-                empNum = EmployeeNumber
-            });
+            return await con.QuerySingleOrDefaultAsync<User>(query, new { EmployeeNumber });
     }
 
     public async Task<List<User>> GetList()
