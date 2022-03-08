@@ -11,11 +11,14 @@ public class UserController : ControllerBase
 {
     private readonly ILogger<UserController> _logger;
     private readonly IUserRepository _user;
+    private readonly IHardwareRepository _hardware;
 
-    public UserController(ILogger<UserController> logger, IUserRepository user)
+    public UserController(ILogger<UserController> logger,
+    IUserRepository user, IHardwareRepository hardware)
     {
         _logger = logger;
         _user = user;
+        _hardware = hardware;
     }
 
     [HttpGet]
@@ -37,7 +40,11 @@ public class UserController : ControllerBase
         if (user is null)
             return NotFound("No user found with given employee number");
 
-        return Ok(user.asDto);
+        var dto = user.asDto;
+
+        dto.Hardware = await _hardware.GetAllForEmployee(user.EmployeeNumber);
+
+        return Ok(dto);
     }
 
     [HttpPost]

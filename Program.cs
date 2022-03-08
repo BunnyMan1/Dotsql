@@ -4,6 +4,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddTransient<IUserRepository, UserRepository>();
+builder.Services.AddTransient<IHardwareRepository, HardwareRepository>();
 
 // Singleton -> Same object every time
 // Scoped    -> Same object for every single HTTP request

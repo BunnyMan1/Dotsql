@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Dotsql.Models;
 
 namespace Dotsql.DTOs;
 
@@ -22,6 +23,9 @@ public record UserDTO
 
     [JsonPropertyName("gender")]
     public string Gender { get; set; }
+
+    [JsonPropertyName("hardware")]
+    public List<Hardware> Hardware { get; set; }
 }
 
 public record UserCreateDTO
